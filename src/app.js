@@ -9,16 +9,16 @@ const PLAYERS = [
     "Mask",
     "Tiger",
     "Captain",
-    "Catwoman",
-    "Fish",
-    "Hulk",
-    "Ninja",
-    "Black Cat",
-    "Volverine",
-    "Thor",
-    "Slayer",
-    "Vader",
-    "Slingo"
+    // "Catwoman",
+    // "Fish",
+    // "Hulk",
+    // "Ninja",
+    // "Black Cat",
+    // "Volverine",
+    // "Thor",
+    // "Slayer",
+    // "Vader",
+    // "Slingo"
 ];
 
 // Player Class
@@ -28,7 +28,7 @@ class Player {
         this.name = name;
         this.type = type;
         this.strength = this.getRandomStrength();
-        this.image = "images/super-"+id+".png";
+        this.image = "images/super-"+(id+1)+".png";
     }
 
     // getting random strength
@@ -41,12 +41,21 @@ class Player {
         let player = document.createElement("div");
         player.classList.add("player");
         player.setAttribute("data-id", this.id);
+
+        let img = document.createElement("img");
+        img.setAttribute("src", this.image)
+        player.appendChild(img)
         
-        player.innerHTML=`
-            <div class="name">${this.name}</div>
-            <img src="${this.image}">
-            <div class="strength">${this.strength}</div>
-        `
+        let name = document.createElement("div");
+        name.classList.add("name");
+        name.innerHTML=this.name;
+        player.appendChild(name);
+
+        let strength=document.createElement("div")
+        strength.classList.add("strength");
+        strength.innerHTML=this.strength
+        player.appendChild(strength)
+
         return player;
     }
 }
@@ -55,7 +64,7 @@ class Player {
 class Superwar {
     constructor(players) {
         this.players = players.map((player, i) => {
-            return new Player(i+1, player, (i<players.length/2)? "hero" : "villain");
+            return new Player(i, player, (i<players.length/2)? "hero" : "villain");
         });
     }
 
